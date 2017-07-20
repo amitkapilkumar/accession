@@ -21,6 +21,8 @@ Service can be consumed over the REST call as:
 Output will be displayed as
 > OutPut: A00000, A0001, ABCDEFG1, DRR2110012, ERR000111-ERR000113, ERR000115-ERR000116, ERR100114, ERR200000001-ERR200000003, SRR211001
 
+**Note: executor.jar requires Java Runtime Environment 1.8**
+
 ## Viewing webpage
 1. User can navigate to http://`machine-ip-or-name`:`port`/accession/index.html to try enter list of valid Accession Numbers and get ordered list of Accession Numbers as output
 	- Ex.: http://localhost:8080/accession/index.html
