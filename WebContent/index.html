@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Accession Number</title>
+<style type="text/css">
+body {
+	background-color: #333f48;
+	font-family: "bg flame";
+	color: #ffffff;
+}
+</style>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+function isEmpty(value) {
+	return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
+}
+$(document).ready(function() {
+	$("#list").val("");	
+	$("#getOrderedList").click(function() {
+		$("#result").html("");
+		if(isEmpty($("#list").val())) {
+			alert("Empty List of Accesion Numbers !!");
+		}
+		else {
+	    	var dataObject = { "list" : $("#list").val() };
+	    	$.ajax({
+	    		url: './orderedlist',
+				type: 'put',
+				data: JSON.stringify(dataObject),
+				contentType: 'application/json',
+				success: function(data) {
+					$("#result").html(data.list);
+				},
+				failure: function() {
+					alert("Failed to connect !!");
+				},
+				error: function() {
+					alert("Invalid Accession Number exception");
+				}
+	    	});
+		}
+	});
+});
+</script>
+</head>
+<body>
+<div align="center">
+<table style="text-align: center">
+<tr>
+<td><textarea id="list" placeholder="Enter comma separated list of Accesion numbers. Example : A00000, A0001, ERR000111" 
+cols="120" rows="5" style="resize: none;"></textarea></td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+<td><input type="button" id="getOrderedList" value="Get ordered list of accession numbers"/></td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+<td><div id="result" style="font-weight: bold; font-size: large;"></div></td>
+</tr>
+</table>
+</div>
+</body>
+</html>
