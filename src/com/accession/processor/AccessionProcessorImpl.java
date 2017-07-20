@@ -2,10 +2,12 @@ package com.accession.processor;
 
 import static com.accession.util.Constants.EMPTY_STRING;
 import static com.accession.util.Constants.INVALID_ACCESSION_NUMBER;
+import static com.accession.util.Constants.PATTERN;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Component;
 
@@ -40,7 +42,8 @@ public class AccessionProcessorImpl implements AccessionProcessor {
 	}
 	
 	private boolean isMatchingSequence(String s1, String s2) throws AccessionNumberFormatException {
-		if(s1 == null || s2 == null || s1.isEmpty() || s2.isEmpty()) {
+		Pattern pattern = Pattern.compile(PATTERN);
+		if(s1 == null || s2 == null || s1.isEmpty() || s2.isEmpty() || !pattern.matcher(s1).matches() || !pattern.matcher(s2).matches()) {
 			throw new AccessionNumberFormatException(INVALID_ACCESSION_NUMBER);
 		}
 		if(getStringComponent(s1).equals(getStringComponent(s2)) && s1.length() == s2.length()) {
